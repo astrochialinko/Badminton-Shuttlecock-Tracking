@@ -24,29 +24,31 @@ Knowledge gap (What we know/don’t know about the topic)
 - We don't know how well it can generalize into other video recordings outside of BWF footages
 
 ---
-## Data Sets: [Shuttlecock Trajectory Dataset](https://hackmd.io/Nf8Rh1NrSrqNUzmO0sQKZw)
+## Data Sets
 A brief description of the data required :
   - Focusing on men and woman singles event in badminton tournaments
   - Manually cut, trim, and label video data
   - Labels of badminton players performing different kinds of strokes 
    
 How would you get such data ?
-- Download the dataset from the website
+- Download the dataset from the website: [Shuttlecock Trajectory Dataset](https://hackmd.io/Nf8Rh1NrSrqNUzmO0sQKZw)
 - Video data to be extracted from [Badminton World Federation (BWF)](https://www.youtube.com/c/bwftv) Youtube channel 
-- Tha data is label by the badminton coach and the professional badminton players.
+- Tha data is labeled by the badminton coach and the professional badminton players.
 
 ---
 ## Plans
 A list of questions & corresponding analysis tasks you plan to do :
 - Analysis tasks we plan to do
-    - ~~Attempt to retrieve available public datasets (email authors etc) to cut down the time spent on labelling data~~
+    - Attempt to retrieve available public datasets to cut down the time spent on labelling data (done!)
     - Familiar with our dataset
     - Reproduce the results from the previous work (pretrained models) of [TrackNetV2](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2)
     - Improve the model performance
     - Apply this model to our own data set
-- Questions
+- Questions to ask
     - Are we tested upon solely how well our model performs ? (Accuracy numbers, confusion matrix etc)
+    - Any possible pretrained models?
     - Using models outside of the scope of our class ? (Computer vision, custom DL etc)
-    - Must it be real world application ?
+    - How well can the model be applied to our own recording videos ? 
+    - Why does the model work well or not well ? 
     - Implementing a paper ?
-    - Look for possible pretrained models
+    
