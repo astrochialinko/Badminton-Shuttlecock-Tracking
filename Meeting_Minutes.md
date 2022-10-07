@@ -1,0 +1,32 @@
+# INFO 521 - Final Project Meeting Minutes
+
+---
+### Oct. 07, 2022
+- **Time:** Oct. 07, 2022 during 12:30-14:00
+- **Location:** N309, Steward Observatory
+- **Participants:** Chia-Lin Ko, Yean Jea Hew
+- **Milestone:** run the [TrackNetV2](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2) code with the [Shuttlecock Trajectory Dataset](https://hackmd.io/CQmL6OKKSGKY9xUvU8n0iQ) 
+- **Discussion**
+    - CL
+        - environment: Ubuntu 20.04.3 LTS + unknow GPU
+        - unsuccessfully install CUDA, so I try run the code without install CUDA
+            - can run `predict.py`, but the output file (.csv and .mp4) are only having the frame but without prediceted value
+            - get error message relative to CPU/GPU
+        - Try runing other github rope [TrackNet-Badminton-Tracking-tensorflow2](https://github.com/Chang-Chia-Chi/TrackNet-Badminton-Tracking-tensorflow2) that is based on TrackNetV2
+            - Have error message relative to CPU/GPU
+        - It seems that I should try either install the CUDA and use GPU to run or modify the script to run with CPU only
+        - I will try to install the CUDA in my mechine
+            - [LINUX X64 (AMD64/EM64T) DISPLAY DRIVER](https://www.nvidia.com/Download/driverResults.aspx/193095/en-us/)
+    - YJ
+        - environment: Windows + NVIDIA GPU
+        - can not successfully run `predict.py` 
+        - get error message relative to keras package(?)
+- **Summary**
+    - Schedule office hour at 11:00 Oct 14, 2022 [(Zoom link)](https://arizona.zoom.us/my/cromanpa)
+    - CL will try to install CUDA
+    - YJ wil try to run using python 3.6 and look into keras package
+- **Next Meeting** 
+    - Time: Oct. 17, 2022 at 3:30 pm
+    - Location: ML classroom
+    - Goal: summary and discuss (1) the meeting of office hour on Oct, 24 (2) any further work progress
+---
