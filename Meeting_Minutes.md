@@ -21,6 +21,8 @@
         - environment: Windows + NVIDIA GPU
         - can not successfully run `predict.py` 
         - get error message relative to keras package(?)
+        - Try out the Docker file provided to ensure environment compatibility 
+        - Try creating a new enviroment using Python 3.6.13
 - **Summary**
     - Schedule office hour at 11:00 Oct 14, 2022 [(Zoom link)](https://arizona.zoom.us/my/cromanpa)
     - CL will try to install CUDA
