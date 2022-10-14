@@ -43,7 +43,7 @@ A list of questions & corresponding analysis tasks you plan to do :
     - Familiar with our dataset
     - Reproduce the results from the previous work (pretrained models) of [TrackNetV2](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2)
     - Improve the model performance
-    - Apply this model to our own data set
+    - Apply this model to [our own data set](https://hackmd.io/@chialinko/rkYa-2qYY)
 - Questions to ask
     - Are we tested upon solely how well our model performs ? (Accuracy numbers, confusion matrix etc)
     - Any possible pretrained models?
