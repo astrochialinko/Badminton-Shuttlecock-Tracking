@@ -58,7 +58,7 @@ python3 predict.py --video_name=/home/chia-linko/Workshop/Course/Fall2022/INFO52
 - Need to go back to TrackNetV2
 
 ---
-### Oct 13, 2022 (Thu.): error message
+### Oct 13, 2022 (Thu.): error message when reproducing [TrackNetV2](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2)
 - :eyes: error message 1 (solved?)
     - line 172 `y_pred = model.predict(unit, batch_size=BATCH_SIZE)`
     - `tensorflow.python.framework.errors_impl.InvalidArgumentError:  Default MaxPoolingOp only supports NHWC on device type CPU
