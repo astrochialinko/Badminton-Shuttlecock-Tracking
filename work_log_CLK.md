@@ -2,6 +2,7 @@
 
 ###### tags: `INFO 521`
 
+[TOC]
 
 ### Oct 06, 2022 (Thu.): reproducing [TrackNetV2](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2)
 
@@ -120,3 +121,62 @@ python3 predict.py --video_name=/home/chia-linko/Workshop/Course/Fall2022/INFO52
         - `git rm --cached model906_30`
         - `git commit --amend -CHEAD`
         - `git push`
+
+---
+### Oct 26, 2022 (Wed.): trying to fix error message on Oct 13
+
+- Jiacheng'r commit: 
+    - The fix is to change each instance of `data_format='channels_first'` to `data_format='channels_last'` in file `3_in_1_out/TrackNet.py` and `3_in_3_out/TrackNet3.py`
+    - This error message is associated with your fix for error message 1, where the `channel` dimension is moved from 2d to 4th position. And the `data_format` parameter is responsible for telling 
+- try: typing `:%s/channels_first/channels_final` in `3_in_1_out/TrackNet.py`
+- run: `python3 predict.py --video_name=/home/chia-linko/Workshop/Course/Fall2022/INFO521_MachineLearning/Final_Project/DataSet/profession_dataset/match1/rally_video/1_01_00.mp4 --load_weights=model_33`
+- :bomb: error message 1 (unsolved)
+    - same as error message 1 on Oct 13
+        ```
+        2022-10-26 13:26:57.710708: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libcudart.so.11.0'; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory
+        2022-10-26 13:26:57.710727: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
+        2022-10-26 13:26:58.672198: E tensorflow/stream_executor/cuda/cuda_driver.cc:271] failed call to cuInit: CUDA_ERROR_UNKNOWN: unknown error
+        2022-10-26 13:26:58.672229: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (dhcp132-143): /proc/driver/nvidia/version does not exist
+        2022-10-26 13:26:58.672550: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
+        To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+        Beginning predicting......
+        2022-10-26 13:26:59.047538: I tensorflow/compiler/mlir/mlir_graph_optimization_pass.cc:185] None of the MLIR Optimization Passes are enabled (registered 2)
+        Traceback (most recent call last):
+          File "predict.py", line 164, in <module>
+            y_pred = model.predict(unit, batch_size=BATCH_SIZE)
+          File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/keras/engine/training.py", line 1751, in predict
+            tmp_batch_outputs = self.predict_function(iterator)
+          File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/eager/def_function.py", line 885, in __call__
+            result = self._call(*args, **kwds)
+          File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/eager/def_function.py", line 957, in _call
+            filtered_flat_args, self._concrete_stateful_fn.captured_inputs)  # pylint: disable=protected-access
+          File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/eager/function.py", line 1964, in _call_flat
+            ctx, args, cancellation_manager=cancellation_manager))
+          File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/eager/function.py", line 596, in call
+            ctx=ctx)
+          File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/eager/execute.py", line 60, in quick_execute
+            inputs, attrs, num_outputs)
+        tensorflow.python.framework.errors_impl.InvalidArgumentError:  Default MaxPoolingOp only supports NHWC on device type CPU
+             [[node model_2/max_pooling2d_1/MaxPool (defined at predict.py:164) ]] [Op:__inference_predict_function_2866]
+
+        Function call stack:
+        predict_function
+        ```
+
+#### Note: Github comment
+- create branck
+    - git:(main) `git branch reproduce-clk`
+    - git:(main) `git checkout reproduce-clk`
+    - git:(reproduce-clk) `git add TrackNet.py`
+    - git:(reproduce-clk) `git commit -m "change channels_first to channels_final in data_format"`
+    - git:(reproduce-clk) `git push origin reproduce-clk`
+- pull from main (for editing .md from website)
+    - git:(reproduce-clk) `git checkout main`
+    - git:(main) `git pull`
+    - git:(main) `git log --oneline -5`
+- merge branch from main
+    - git:(main) `git checkout reproduce-clk`
+    - git:(reproduce-clk) `git log --oneline -5`
+    - git:(reproduce-clk) `git merge main`
+    - git:(reproduce-clk) `git log --oneline -5`
+    - git:(reproduce-clk) `git push origin reproduce-clk`
