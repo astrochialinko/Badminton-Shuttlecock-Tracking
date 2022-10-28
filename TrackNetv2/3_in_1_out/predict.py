@@ -94,7 +94,9 @@ def custom_loss(y_true, y_pred):
     loss = (-1)*(K.square(1 - y_pred) * y_true * K.log(K.clip(y_pred, K.epsilon(), 1)) + K.square(y_pred) * (1 - y_true) * K.log(K.clip(1 - y_pred, K.epsilon(), 1)))
     return K.mean(loss)
 
-model = load_model(load_weights, custom_objects={'custom_loss':custom_loss})
+#model = load_model(load_weights, custom_objects={'custom_loss':custom_loss})
+model = TrackNet(HEIGHT, WIDTH)
+model.load_weights(load_weights)
 
 print('Beginning predicting......')
 
@@ -161,6 +163,7 @@ while success:
     unit = unit.reshape((1, 9, HEIGHT, WIDTH))
     unit = unit.astype('float32')
     unit /= 255
+    unit = np.transpose(unit, axes=[0,2,3,1])
     y_pred = model.predict(unit, batch_size=BATCH_SIZE)
     y_pred = y_pred > 0.5
     y_pred = y_pred.astype('float32')
