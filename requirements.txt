@@ -2,10 +2,10 @@ numpy==1.19.5
 scipy==1.5.4
 pandas==1.1.5
 matplotlib==3.3.4
-keras==2.6.0
+keras==2.2.4
 scikit-learn==0.24.2
-tensorflow==2.6.2
-pyqt5==5.15.6
+tensorflow==1.13.1
+pyqt5==2.10.0
 pymysql==1.0.2
 opencv-python==4.6.0.66
 imutils==0.5.4
