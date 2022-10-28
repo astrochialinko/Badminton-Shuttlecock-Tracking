@@ -125,7 +125,7 @@ python3 predict.py --video_name=/home/chia-linko/Workshop/Course/Fall2022/INFO52
 ---
 ### Oct 26, 2022 (Wed.): trying to fix error message on Oct 13
 
-- Jiacheng'r commit: 
+- Jiacheng'r comment: 
     - The fix is to change each instance of `data_format='channels_first'` to `data_format='channels_last'` in file `3_in_1_out/TrackNet.py` and `3_in_3_out/TrackNet3.py`
     - This error message is associated with your fix for error message 1, where the `channel` dimension is moved from 2d to 4th position. And the `data_format` parameter is responsible for telling 
 - try: typing `:%s/channels_first/channels_final` in `3_in_1_out/TrackNet.py`
@@ -180,3 +180,211 @@ python3 predict.py --video_name=/home/chia-linko/Workshop/Course/Fall2022/INFO52
     - git:(reproduce-clk) `git merge main`
     - git:(reproduce-clk) `git log --oneline -5`
     - git:(reproduce-clk) `git push origin reproduce-clk`
+---
+### Oct 27, 2022 (Thu.): keep trying to fix error message on Oct 13
+
+- Jiacheng'r suggestions
+    - In `3_in_1_out/predict.py` file
+        - L97 `# model = load_model(load_weights, custom_objects={'custom_loss':custom_loss})`
+        - L98 add `model = TrackNet(HEIGHT, WIDTH)`
+        - L99 add `model.load_weights(load_weights)`
+        - L166 add `unit = np.transpose(unit, axes=[0,2,3,1])`
+    - In `3_in_1_out/TrackNet.py` file
+        - type `:%s/channels_final/channels_last` 
+- run: `python3 predict.py --video_name=/home/chia-linko/Workshop/Course/Fall2022/INFO521_MachineLearning/Final_Project/DataSet/profession_dataset/match1/rally_video/1_01_00.mp4 --load_weights=model_33`
+- :eyes: error message 1 (solved?)
+    - same as error message 1 on Oct 13
+    ```
+    Traceback (most recent call last):
+      File "predict.py", line 98, in <module>
+        model = TrackNet(HEIGHT, WIDTH)
+      File "/home/chia-linko/Workshop/Course/Fall2022/INFO521_MachineLearning/Final_Project/final-project-astrochialinko/TrackNetv2/3_in_1_out/TrackNet.py", line 69, in TrackNet
+        x = concatenate( [UpSampling2D( (2,2), data_format='channels_last')(x), x3], axis=1)
+        ...
+    ValueError: A `Concatenate` layer requires inputs with matching shapes except for the concat axis. Got inputs shapes: [(None, 2, 72, 512), (None, 2, 72, 256)]
+    ```
+    - solution: `axix=1` -> `axix=3`
+        - modify L71: `x = concatenate( [UpSampling2D( (2,2), data_format='channels_last')(x), x3], axis=3)`
+        - modify L89: `x = concatenate( [UpSampling2D( (2,2), data_format='channels_last')(x), x2], axis=3)`
+        - modify L102: `x = concatenate( [UpSampling2D( (2,2), data_format='channels_last')(x), x1], axis=3)`
+- :eyes: error message 2 (solved?)
+    ```
+    File "predict.py", line 98, in <module>
+        model = TrackNet(HEIGHT, WIDTH)
+      File "/home/chia-linko/Workshop/Course/Fall2022/INFO521_MachineLearning/Final_Project/final-project-astrochialinko/TrackNetv2/3_in_1_out/TrackNet.py", line 102, in TrackNet
+        x = concatenate( [UpSampling2D( (2,2), data_format='channels_last')(x), x1], axis=3)
+        ...
+    ValueError: A `Concatenate` layer requires inputs with matching shapes except for the concat axis. Got inputs shapes: [(None, 8, 288, 128), (None, 9, 288, 64)]
+    ```
+    - solution: change shape from `(9,h,w)` -> `(h,w,9)`
+        - modify L8: `imgs_input = Input(shape=(input_height,input_width,9))`
+- :eyes: error message 3 (solved?)
+    ```
+    File "predict.py", line 98, in <module>
+        model = TrackNet(HEIGHT, WIDTH)
+      File "/home/chia-linko/Workshop/Course/Fall2022/INFO521_MachineLearning/Final_Project/final-project-astrochialinko/TrackNetv2/3_in_1_out/TrackNet.py", line 131, in TrackNet
+        output = (Reshape((OutputHeight, OutputWidth)))(x)
+        ...
+    ValueError: total size of new array must be unchanged, input_shape = [288, 512, 1], output_shape = [512, 1]
+    ```
+    - solution: changle `o_shape[2]` -> `o_shape[1]`; `o_shape[3]` -> `o_shape[2]`
+        - modify L124: `OutputHeight = o_shape[1]`
+        - modify L125: `OutputWidth = o_shape[2]`
+- :bomb: error message 4 (unsolved)
+    ```
+    Traceback (most recent call last):
+      File "predict.py", line 99, in <module>
+        model.load_weights(load_weights)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/keras/engine/training.py", line 2361, in load_weights
+        hdf5_format.load_weights_from_hdf5_group(f, self.layers)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/keras/saving/hdf5_format.py", line 713, in load_weights_from_hdf5_group
+        backend.batch_set_value(weight_value_tuples)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/util/dispatch.py", line 206, in wrapper
+        return target(*args, **kwargs)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/keras/backend.py", line 3775, in batch_set_value
+        x.assign(np.asarray(value, dtype=dtype_numpy(x)))
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/ops/resource_variable_ops.py", line 902, in assign
+        (tensor_name, self._shape, value_tensor.shape))
+    ValueError: Cannot assign to variable batch_normalization/gamma:0 due to variable shape (64,) and value shape (512,) are incompatible
+    ```
+    - ???
+#### model.summary
+```
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to
+==================================================================================================
+input_1 (InputLayer)            [(None, 288, 512, 9) 0
+__________________________________________________________________________________________________
+conv2d (Conv2D)                 (None, 288, 512, 64) 5248        input_1[0][0]
+__________________________________________________________________________________________________
+activation (Activation)         (None, 288, 512, 64) 0           conv2d[0][0]
+__________________________________________________________________________________________________
+batch_normalization (BatchNorma (None, 288, 512, 64) 256         activation[0][0]
+__________________________________________________________________________________________________
+conv2d_1 (Conv2D)               (None, 288, 512, 64) 36928       batch_normalization[0][0]
+__________________________________________________________________________________________________
+activation_1 (Activation)       (None, 288, 512, 64) 0           conv2d_1[0][0]
+__________________________________________________________________________________________________
+batch_normalization_1 (BatchNor (None, 288, 512, 64) 256         activation_1[0][0]
+__________________________________________________________________________________________________
+max_pooling2d (MaxPooling2D)    (None, 144, 256, 64) 0           batch_normalization_1[0][0]
+__________________________________________________________________________________________________
+conv2d_2 (Conv2D)               (None, 144, 256, 128 73856       max_pooling2d[0][0]
+__________________________________________________________________________________________________
+activation_2 (Activation)       (None, 144, 256, 128 0           conv2d_2[0][0]
+__________________________________________________________________________________________________
+batch_normalization_2 (BatchNor (None, 144, 256, 128 512         activation_2[0][0]
+__________________________________________________________________________________________________
+conv2d_3 (Conv2D)               (None, 144, 256, 128 147584      batch_normalization_2[0][0]
+__________________________________________________________________________________________________
+activation_3 (Activation)       (None, 144, 256, 128 0           conv2d_3[0][0]
+__________________________________________________________________________________________________
+batch_normalization_3 (BatchNor (None, 144, 256, 128 512         activation_3[0][0]
+__________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)  (None, 72, 128, 128) 0           batch_normalization_3[0][0]
+__________________________________________________________________________________________________
+conv2d_4 (Conv2D)               (None, 72, 128, 256) 295168      max_pooling2d_1[0][0]
+__________________________________________________________________________________________________
+activation_4 (Activation)       (None, 72, 128, 256) 0           conv2d_4[0][0]
+__________________________________________________________________________________________________
+batch_normalization_4 (BatchNor (None, 72, 128, 256) 1024        activation_4[0][0]
+__________________________________________________________________________________________________
+conv2d_5 (Conv2D)               (None, 72, 128, 256) 590080      batch_normalization_4[0][0]
+__________________________________________________________________________________________________
+activation_5 (Activation)       (None, 72, 128, 256) 0           conv2d_5[0][0]
+__________________________________________________________________________________________________
+batch_normalization_5 (BatchNor (None, 72, 128, 256) 1024        activation_5[0][0]
+__________________________________________________________________________________________________
+conv2d_6 (Conv2D)               (None, 72, 128, 256) 590080      batch_normalization_5[0][0]
+__________________________________________________________________________________________________
+activation_6 (Activation)       (None, 72, 128, 256) 0           conv2d_6[0][0]
+__________________________________________________________________________________________________
+batch_normalization_6 (BatchNor (None, 72, 128, 256) 1024        activation_6[0][0]
+__________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)  (None, 36, 64, 256)  0           batch_normalization_6[0][0]
+__________________________________________________________________________________________________
+conv2d_7 (Conv2D)               (None, 36, 64, 512)  1180160     max_pooling2d_2[0][0]
+__________________________________________________________________________________________________
+activation_7 (Activation)       (None, 36, 64, 512)  0           conv2d_7[0][0]
+__________________________________________________________________________________________________
+batch_normalization_7 (BatchNor (None, 36, 64, 512)  2048        activation_7[0][0]
+__________________________________________________________________________________________________
+conv2d_8 (Conv2D)               (None, 36, 64, 512)  2359808     batch_normalization_7[0][0]
+__________________________________________________________________________________________________
+activation_8 (Activation)       (None, 36, 64, 512)  0           conv2d_8[0][0]
+__________________________________________________________________________________________________
+batch_normalization_8 (BatchNor (None, 36, 64, 512)  2048        activation_8[0][0]
+__________________________________________________________________________________________________
+conv2d_9 (Conv2D)               (None, 36, 64, 512)  2359808     batch_normalization_8[0][0]
+__________________________________________________________________________________________________
+activation_9 (Activation)       (None, 36, 64, 512)  0           conv2d_9[0][0]
+__________________________________________________________________________________________________
+batch_normalization_9 (BatchNor (None, 36, 64, 512)  2048        activation_9[0][0]
+__________________________________________________________________________________________________
+up_sampling2d (UpSampling2D)    (None, 72, 128, 512) 0           batch_normalization_9[0][0]
+__________________________________________________________________________________________________
+concatenate (Concatenate)       (None, 72, 128, 768) 0           up_sampling2d[0][0]
+                                                                 batch_normalization_6[0][0]
+__________________________________________________________________________________________________
+conv2d_10 (Conv2D)              (None, 72, 128, 256) 1769728     concatenate[0][0]
+__________________________________________________________________________________________________
+activation_10 (Activation)      (None, 72, 128, 256) 0           conv2d_10[0][0]
+__________________________________________________________________________________________________
+batch_normalization_10 (BatchNo (None, 72, 128, 256) 1024        activation_10[0][0]
+__________________________________________________________________________________________________
+conv2d_11 (Conv2D)              (None, 72, 128, 256) 590080      batch_normalization_10[0][0]
+__________________________________________________________________________________________________
+activation_11 (Activation)      (None, 72, 128, 256) 0           conv2d_11[0][0]
+__________________________________________________________________________________________________
+batch_normalization_11 (BatchNo (None, 72, 128, 256) 1024        activation_11[0][0]
+__________________________________________________________________________________________________
+conv2d_12 (Conv2D)              (None, 72, 128, 256) 590080      batch_normalization_11[0][0]
+__________________________________________________________________________________________________
+activation_12 (Activation)      (None, 72, 128, 256) 0           conv2d_12[0][0]
+__________________________________________________________________________________________________
+batch_normalization_12 (BatchNo (None, 72, 128, 256) 1024        activation_12[0][0]
+__________________________________________________________________________________________________
+up_sampling2d_1 (UpSampling2D)  (None, 144, 256, 256 0           batch_normalization_12[0][0]
+__________________________________________________________________________________________________
+concatenate_1 (Concatenate)     (None, 144, 256, 384 0           up_sampling2d_1[0][0]
+                                                                 batch_normalization_3[0][0]
+__________________________________________________________________________________________________
+conv2d_13 (Conv2D)              (None, 144, 256, 128 442496      concatenate_1[0][0]
+__________________________________________________________________________________________________
+activation_13 (Activation)      (None, 144, 256, 128 0           conv2d_13[0][0]
+__________________________________________________________________________________________________
+batch_normalization_13 (BatchNo (None, 144, 256, 128 512         activation_13[0][0]
+__________________________________________________________________________________________________
+conv2d_14 (Conv2D)              (None, 144, 256, 128 147584      batch_normalization_13[0][0]
+__________________________________________________________________________________________________
+activation_14 (Activation)      (None, 144, 256, 128 0           conv2d_14[0][0]
+__________________________________________________________________________________________________
+batch_normalization_14 (BatchNo (None, 144, 256, 128 512         activation_14[0][0]
+__________________________________________________________________________________________________
+up_sampling2d_2 (UpSampling2D)  (None, 288, 512, 128 0           batch_normalization_14[0][0]
+__________________________________________________________________________________________________
+concatenate_2 (Concatenate)     (None, 288, 512, 192 0           up_sampling2d_2[0][0]
+                                                                 batch_normalization_1[0][0]
+__________________________________________________________________________________________________
+conv2d_15 (Conv2D)              (None, 288, 512, 64) 110656      concatenate_2[0][0]
+__________________________________________________________________________________________________
+activation_15 (Activation)      (None, 288, 512, 64) 0           conv2d_15[0][0]
+__________________________________________________________________________________________________
+batch_normalization_15 (BatchNo (None, 288, 512, 64) 256         activation_15[0][0]
+__________________________________________________________________________________________________
+conv2d_16 (Conv2D)              (None, 288, 512, 64) 36928       batch_normalization_15[0][0]
+__________________________________________________________________________________________________
+activation_16 (Activation)      (None, 288, 512, 64) 0           conv2d_16[0][0]
+__________________________________________________________________________________________________
+batch_normalization_16 (BatchNo (None, 288, 512, 64) 256         activation_16[0][0]
+__________________________________________________________________________________________________
+conv2d_17 (Conv2D)              (None, 288, 512, 1)  65          batch_normalization_16[0][0]
+__________________________________________________________________________________________________
+activation_17 (Activation)      (None, 288, 512, 1)  0           conv2d_17[0][0]
+__________________________________________________________________________________________________
+reshape (Reshape)               (None, 288, 512)     0           activation_17[0][0]
+==================================================================================================
+Total params: 11,341,697
+Trainable params: 11,334,017
+Non-trainable params: 7,680
+```
