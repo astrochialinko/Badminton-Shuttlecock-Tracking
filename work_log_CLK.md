@@ -248,6 +248,54 @@ python3 predict.py --video_name=/home/chia-linko/Workshop/Course/Fall2022/INFO52
     ValueError: Cannot assign to variable batch_normalization/gamma:0 due to variable shape (64,) and value shape (512,) are incompatible
     ```
     - ???
+- Found that I used the newer version of keras and tensorflow
+    - previous version
+        ```
+        keras==2.6.0
+        tensorflow==2.6.2
+        h5py==3.1.0
+        ```
+    - downgrade to
+        ```
+        keras==2.2.4
+        tensorflow==1.13.1
+        h5py==2.10.0
+        ```
+- :bomb: error message 4 (unsolved)
+    - similar as the above error message 4 (so labeled as same number)
+    ```
+    Traceback (most recent call last):
+  File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 1659, in _create_c_op
+    c_op = c_api.TF_FinishOperation(op_desc)
+    tensorflow.python.framework.errors_impl.InvalidArgumentError: Dimension 0 in both shapes must be equal, but are 64 and 512. Shapes are [64] and [512]. for 'Assign_2' (op: 'Assign') with input shapes: [64], [512].
+    During handling of the above exception, another exception occurred:
+    Traceback (most recent call last):
+      File "predict.py", line 99, in <module>
+        model.load_weights(load_weights)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/keras/engine/network.py", line 1166, in load_weights
+        f, self.layers, reshape=reshape)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/keras/engine/saving.py", line 1058, in load_weights_from_hdf5_group
+        K.batch_set_value(weight_value_tuples)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/keras/backend/tensorflow_backend.py", line 2465, in batch_set_value
+        assign_op = x.assign(assign_placeholder)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/ops/variables.py", line 1762, in assign
+        name=name)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/ops/state_ops.py", line 223, in assign
+        validate_shape=validate_shape)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/ops/gen_state_ops.py", line 64, in assign
+        use_locking=use_locking, name=name)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+        op_def=op_def)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+        return func(*args, **kwargs)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3300, in create_op
+        op_def=op_def)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 1823, in __init__
+        control_input_ops)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 1662, in _create_c_op
+        raise ValueError(str(e))
+        ValueError: Dimension 0 in both shapes must be equal, but are 64 and 512. Shapes are [64] and [512]. for 'Assign_2' (op: 'Assign') with input shapes: [64], [512].
+    ```
 #### model.summary
 ```
 __________________________________________________________________________________________________
