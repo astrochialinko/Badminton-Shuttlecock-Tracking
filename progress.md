@@ -35,25 +35,27 @@ _Describe the characteristics of your data, any transformations that you have co
 
 ### Describe your initial analysis strategy
 _What was your initial plan?_
-
+- To classify different badminton strokes.
 
 ### What you have tried so far?
 _Describe your current implementation_
-
+- Reproducing TrackNetV2 code and modyfied GPU use to CPU use to accomadate with our computers.
 
 ### What worked and what did not
 _Describe the challenges that you have faced so far and outline a few take-homes from your experience on this project_
+- Succefully tested with our own data but did not get a video output due to video dimensions compatibility.
 
 
 ### What you plan to do next...
 _Please define explicit goals for each of the remaining weeks (before the presentation is due)_
 
-- Week 1:
-- Week 2:
-- Week 3:
+- Week 1: Implement our own amateur data into the TrackNetV2 model and analyze the results. Get more good data with varying angles of gameplay. Identify correct dimensions for video input of TrackNetV2.
+- Week 2: Evaluate baseline model. Add newly gathered data with training set and evaluate performance via Confusion Matrix. Compare with baseline model. 
+- Week 3: Continue with week 2 task and wrao things up. Prepare for presentation and report.
 
 ### Author contributions
 _Describe the contributions of each of the members to the current version of the project_
+
 
 
 Student 1: [Your name]
@@ -69,15 +71,15 @@ Student 1: [Your name]
 - [ ] Writing report.
 - [ ] Additional comments:
 
-Student 2: [Your parner's name]
-- [ ] Development of question / hypothesis;
+Student 2: YuanJea Hew
+- [X] Development of question / hypothesis;
 - [ ] Data research: search for relevant data to contribute to question;
-- [ ] Literature review;
+- [X] Literature review;
 - [ ] Analysis strategy;
-- [ ] Analysis code;
+- [X] Analysis code;
 - [ ] Code review;
-- [ ] Work planning and organization;
+- [X] Work planning and organization;
 - [ ] Improving teamwork and collaboration;
-- [ ] Testing code and procedures;
-- [ ] Writing report.
+- [X] Testing code and procedures;
+- [X] Writing report.
 - [ ] Additional comments:
