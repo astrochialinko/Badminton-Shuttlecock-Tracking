@@ -587,3 +587,42 @@ Trainable params: 11,334,401
 Non-trainable params: 8,064
 ```
 ---
+### Nov 07, 2022 (Mon.): extrame frames from videos
+- extrame frames from videos
+    - Made `video2frames.py` files to extrame `.png` frames from `.mp4` videos
+    - python file is in `final-project-astrochialinko/TrackNetv2/video2frame`
+    - It takes ~40 mins for all the videos (~200) using my destop 
+---
+
+### Nov 08, 2022 (Tue.): run gen_data_rally.py 
+- run `python gen_data_rally.py` in dir `TrackNetv2/3_in_1_out`
+    - :coffee: error message 1 (solved):
+        ```
+        File "gen_data_rally.py", line 34, in <module>
+            a = img_to_array(load_img(p))
+          File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/keras_preprocessing/image/utils.py", line 113, in load_img
+            with open(path, 'rb') as f:
+        FileNotFoundError: [Errno 2] No such file or directory: 'match1/frame/1_01_00/1.png'
+        ```
+    - solution: modify path
+        - In `python gen_data_rally.py` file
+            - L32, add `parent_path = '../../../DataSet/profession_dataset/'`
+            - L34, modify `p = os.path.join(parent_path, game_list[0], 'frame', '1_01_00', '1.png')`
+    - :bomb: error message 2 (unsolved):
+        - python codes create null `.npy` folder 
+        ```
+        Using TensorFlow backend.
+        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+          _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+          _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+          _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:529: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+          _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:530: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+          _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:535: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+          np_resource = np.dtype([("resource", np.ubyte, 1)])
+        ```
+---
