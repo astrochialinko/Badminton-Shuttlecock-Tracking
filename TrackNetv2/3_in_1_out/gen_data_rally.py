@@ -29,8 +29,9 @@ def genHeatMap(w, h, cx, cy, r, mag):
 
 #game_list = ['TaiTzuYing_vs_AkaneYAMAGUCHI_2018AllEnglandOpenMatch_Final', 'TaiTzuYing_vs_ChenYufei_2018AllEnglandOpenMatch_semiFinal']
 #p = os.path.join(game_list[0], 'frame', '0_0_0', '1.png')
+parent_path = '../../../DataSet/profession_dataset/'
 game_list = ['match1', 'match2', 'match3', 'match4', 'match5', 'match6', 'match7', 'match8', 'match9', 'match10', 'match11', 'match12', 'match13', 'match14', 'match15']
-p = os.path.join(game_list[0], 'frame', '1_01_00', '1.png')
+p = os.path.join(parent_path, game_list[0], 'frame', '1_01_00', '1.png')
 a = img_to_array(load_img(p))
 ratio = a.shape[0] / HEIGHT
 
