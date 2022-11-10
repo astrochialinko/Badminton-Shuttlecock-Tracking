@@ -1,6 +1,8 @@
 # Final project progress report
 ### ISTA421/INFO521
 
+###### tags: `INFO 521`
+
 -------
 
 **Project:** Machine Learning in Badminton : Clasification of different badminton strokes during a match
@@ -28,7 +30,7 @@ Please commit this file to your GitHub repo (progress.md) AND to D2L.
 ### GitHub repo usage
 _Describe the current structure of your repo, the number of commits, and the steps you have taken to ensure the reproducibility of your code_
 
-> The current structure of our repo have two branches. One is the main branch and the other branch for recording the changes of the scripts for reproducing the TrackNetV2 model with CPU instead of GPU. The main branch has 24 commits and the reproduce branch has 34 commits
+> The current structure of our repo have two branches. One is the main branch and the other branch is to record the changes of the scripts for reproducing the TrackNetV2 model with CPU instead of GPU. The main branch has 24 commits and the reproduce branch has 34 commits
 
 ### Summarize your data
 _Describe the characteristics of your data, any transformations that you have considered, or potential issues that you have faced (e.g. missing data)_
@@ -47,7 +49,11 @@ _Describe the characteristics of your data, any transformations that you have co
 ### Describe your initial analysis strategy
 _What was your initial plan?_
 
-> To classify badminton strokes performed by the players during a professional badminton match
+> Our initial plan is to classify badminton strokes performed by the players during a professional badminton match. To achieve our goal, we need to 
+> 1. Use [TrackNetV2](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2) to track the shuttlecocks from the input recording video, so that we can use the vector change of the shuttlecocks to separate the strokes
+> 2. Classify the strokes from the separated image sets
+> 
+> Hence, we first reproduce TrackNetV2 code and try to use our own recording video as the input video data. 
 
 ### What you have tried so far?
 _Describe your current implementation_
@@ -57,7 +63,11 @@ _Describe your current implementation_
 ### What worked and what did not
 _Describe the challenges that you have faced so far and outline a few take-homes from your experience on this project_
 
-> Succefully tested with our own data but did not get a video output due to video dimensions compatibility.
+> Challenges we have faced so far:
+> >Succefully tested with our own data but did not get a video output due to video dimensions compatibility.
+> 
+> Take-homes: 
+> > It is common for python codes hit the environment issue, so it is crucial to record the version of all python library used in the project.
 
 ### What you plan to do next...
 _Please define explicit goals for each of the remaining weeks (before the presentation is due)_
@@ -92,11 +102,11 @@ Student 2: YuanJea Hew
 - [X] Development of question / hypothesis;
 - [ ] Data research: search for relevant data to contribute to question;
 - [X] Literature review;
-- [ ] Analysis strategy;
+- [x] Analysis strategy;
 - [X] Analysis code;
 - [ ] Code review;
 - [X] Work planning and organization;
-- [ ] Improving teamwork and collaboration;
+- [x] Improving teamwork and collaboration;
 - [X] Testing code and procedures;
 - [X] Writing report.
 - [ ] Additional comments:
