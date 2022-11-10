@@ -52,19 +52,24 @@ _What was your initial plan?_
 ### What you have tried so far?
 _Describe your current implementation_
 
-> - Reproducing TrackNetV2 code and modyfied GPU use to CPU use to accomadate with our computers.
+> Reproducing TrackNetV2 code and modyfied GPU use to CPU use to accomadate with our computers.
 
 ### What worked and what did not
 _Describe the challenges that you have faced so far and outline a few take-homes from your experience on this project_
 
-> - Succefully tested with our own data but did not get a video output due to video dimensions compatibility.
+> Succefully tested with our own data but did not get a video output due to video dimensions compatibility.
 
 ### What you plan to do next...
 _Please define explicit goals for each of the remaining weeks (before the presentation is due)_
 
-> - Week 1: Implement our own amateur data into the TrackNetV2 model and analyze the results. Get more good data with varying angles of gameplay. Identify correct dimensions for video input of TrackNetV2.
-> - Week 2: Evaluate baseline model. Add newly gathered data with training set and evaluate performance via Confusion Matrix. Compare with baseline model. 
-> - Week 3: Continue with week 2 task and wrao things up. Prepare for presentation and report.
+> - Week 1: 
+> Implement our own amateur data into the TrackNetV2 model and analyze the results. Get more good data with varying angles of gameplay. Identify correct dimensions for video input of TrackNetV2.
+> 
+> - Week 2: 
+> Evaluate baseline model. Add newly gathered data with training set and evaluate performance via Confusion Matrix. Compare with baseline model. 
+> 
+> - Week 3:
+>  Continue with week 2 task and wrao things up. Prepare for presentation and report.
 
 ### Author contributions
 _Describe the contributions of each of the members to the current version of the project_
@@ -79,7 +84,7 @@ Student 1: Chia-Lin Ko
 - [ ] Code review;
 - [x] Work planning and organization;
 - [x] Improving teamwork and collaboration;
-- [ ] Testing code and procedures;
+- [x] Testing code and procedures;
 - [x] Writing report.
 - [ ] Additional comments:
 
