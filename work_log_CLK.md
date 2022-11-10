@@ -591,6 +591,7 @@ Non-trainable params: 8,064
 - extrame frames from videos
     - Made `video2frames.py` files to extrame `.png` frames from `.mp4` videos
     - python file is in `final-project-astrochialinko/TrackNetv2/video2frame`
+- successfully extrame frames from videos
     - It takes ~40 mins for all the videos (~200) using my destop 
 ---
 
@@ -604,25 +605,41 @@ Non-trainable params: 8,064
             with open(path, 'rb') as f:
         FileNotFoundError: [Errno 2] No such file or directory: 'match1/frame/1_01_00/1.png'
         ```
-    - solution: modify path
-        - In `python gen_data_rally.py` file
-            - L32, add `parent_path = '../../../DataSet/profession_dataset/'`
-            - L34, modify `p = os.path.join(parent_path, game_list[0], 'frame', '1_01_00', '1.png')`
-    - :bomb: error message 2 (unsolved):
-        - python codes create null `.npy` folder 
-        ```
-        Using TensorFlow backend.
-        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:526: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-          _np_qint8 = np.dtype([("qint8", np.int8, 1)])
-        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:527: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-          _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
-        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:528: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-          _np_qint16 = np.dtype([("qint16", np.int16, 1)])
-        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:529: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-          _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
-        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:530: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-          _np_qint32 = np.dtype([("qint32", np.int32, 1)])
-        /home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/tensorflow/python/framework/dtypes.py:535: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
-          np_resource = np.dtype([("resource", np.ubyte, 1)])
-        ```
+        - solution: modify path
+            - In `python gen_data_rally.py` file
+                - L32, add `parent_path = '../../../DataSet/profession_dataset/'`
+                - L34, modify `p = os.path.join(parent_path, game_list[0], 'frame', '1_01_00', '1.png')`
+    - :coffee: error 2 (solved, Nov 9):
+        - error without error message
+            - python codes create null `npy` folder 
+            - It should create `x_data_1.npy` ... in `npy` foler
+        - solution: modify path
+            - In `python gen_data_rally.py` file
+                - L47, modify `all_path = glob(os.path.join(parent_path, game, 'frame', '*'))`
+                - L51, modify `train_path[i] = train_path[i][len(os.path.join(parent_path, game, 'frame')) + 1:]`
+                - L53, modify `labelPath = os.path.join(parent_path, game, 'ball_trajectory', p + '_ball.csv')`
+                - L60, modify `r = os.path.join(parent_path, game, 'frame', p)`
+- Successfully run `python gen_data_rally.py` in dir `TrackNetv2/3_in_1_out`
+    - It takes ~40 mins runing with my destop
+    - It creates `npy` folder and generate 62 `x_data_.npy` and 62 `y_data_.npy` which are 165 GB
+    - `OSError: Not enough free space to write 2701983744 bytes`
+        - Total videos should be ~200
+        - Not enough space for all the 200 videos, try using 62 video first and move on
+    
 ---
+### Nov 10, 2022 (Thu.): run train_TrackNet.py 
+- run `train_TrackNet.py` in dir `TrackNetv2/3_in_1_out`
+    - typing `python3 train_TrackNet.py --save_weights=../weights --dataDir=./npy --epochs=10 --tol=200`
+    - :coffee: error message 1 (solved):
+        ```
+        File "train_TrackNet.py", line 166, in <module>
+            model.fit(x_train, y_train, batch_size=BATCH_SIZE, epochs=1)
+        ValueError: Error when checking input: expected input_1 to have shape (288, 512, 9) but got array with shape (9, 288, 512)
+        ```
+    - solution: 
+        - L166, add `x_train = np.transpose(x_train, axes=[0,2,3,1])`
+        - L175, add `x_train = np.transpose(x_train, axes=[0,2,3,1])`
+    - Susscufully run the `train_TrackNet.py`
+        - not yet sure how large the models are
+        - not yet sure how long take the training run, just try 10 epochs first
+        - not yet sure how to choose the `tol`, first try 200
