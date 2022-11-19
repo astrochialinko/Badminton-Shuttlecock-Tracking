@@ -1,5 +1,7 @@
 # Machine Learning in Badminton
 
+###### tags: `INFO 521`
+
 Clasification of different badminton strokes during a match
 
 - INFO 521 Final projects (Fall 2022)
@@ -34,3 +36,4 @@ This project runs on certain versions of Python and conda environment. We cannot
 ## Reference
 
 - [TrackNetV2](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2)
+- [Badminton-Sport-Analysis-Computer-Vision](https://github.com/nethra8902/Badminton-Sport-Analysis-Computer-Vision)
