@@ -643,3 +643,60 @@ Non-trainable params: 8,064
         - not yet sure how large the models are
         - not yet sure how long take the training run, just try 10 epochs first
         - not yet sure how to choose the `tol`, first try 200
+
+---
+### Nov 14, 2022 (Mon.): run train_TrackNet.py 
+
+- run `train_TrackNet.py` in dir `TrackNetv2/3_in_1_out`
+    - typing `python3 train_TrackNet.py --save_weights=../weights --dataDir=./npy --epochs=10 --tol=200`
+    - :bomb: error message 1 (unsolved)
+    ```
+    Traceback (most recent call last):
+      File "train_TrackNet.py", line 164, in <module>
+        x_train = np.load(os.path.abspath(os.path.join(dataDir, 'x_data_' + str(j) + '.npy')))
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/numpy/lib/npyio.py", line 440, in load
+        pickle_kwargs=pickle_kwargs)
+      File "/home/chia-linko/miniconda3/envs/TrackNetV2/lib/python3.6/site-packages/numpy/lib/format.py", line 771, in read_array
+        array.shape = shape
+    ValueError: cannot reshape array of size 0 into shape (509,9,288,512)
+    ```
+- predict `zoom_test.mp4` (Jimmy vs. Satwik)
+    ```
+    python3 predict.py --video_name=/home/chia-linko/Workshop/Course/Fall2022/INFO521_MachineLearning/Final_Project/DataSet/zoom_test.mp4 --load_weights=model_33
+    ```
+
+---
+### Nov 18, 2022 (Fri.): Search github repo for classification 
+
+Find two potential Github repo for classification badminton strokes
+1.  [Badminton-Sport-Analysis-Computer-Vision](https://github.com/nethra8902/Badminton-Sport-Analysis-Computer-Vision)
+    - Badminton Match Video Analysis using YOLOv3, PyTorch, and MXNet Model architechtures
+    - [Dataset](https://livebournemouthac-my.sharepoint.com/:u:/g/personal/s5227228_bournemouth_ac_uk/Ea4KtNE0VFNLncZ-jQsMt1wBVPk61iFcn6VPvF8_hk67oA?e=LQ3xe0&download=1) (~5GB, can not directly unzip, see below)
+    - [Jupyter Notebook](https://github.com/nethra8902/Badminton-Sport-Analysis-Computer-Vision/blob/master/GameCoders_Badminton_Analysis_Project.ipynb)
+2.  [badminton-pose-analysis](https://github.com/deepaktalwardt/badminton-pose-analysis)
+    - Badminton Pose Analysis using Deep-Learning to improve training
+    - [Dataset](https://github.com/deepaktalwardt/badminton-pose-analysis/tree/master/data_collection/preprocessing) (Not yet sure if it is a completed dataset)
+    - [Jupyter Notebook](https://github.com/deepaktalwardt/badminton-pose-analysis/blob/master/Inference_Demo.ipynb) (can't run due to lack of the model?)
+    - [Project Paper](https://github.com/deepaktalwardt/badminton-pose-analysis/blob/master/Badminton_Shot_Classification_and_pose_extraction_to_inform_better_training.pdf)
+
+- For [Badminton-Sport-Analysis-Computer-Vision](https://github.com/nethra8902/Badminton-Sport-Analysis-Computer-Vision) Github repo, download their dataset from the [link](https://livebournemouthac-my.sharepoint.com/:u:/g/personal/s5227228_bournemouth_ac_uk/Ea4KtNE0VFNLncZ-jQsMt1wBVPk61iFcn6VPvF8_hk67oA?e=LQ3xe0&download=1)
+    - The link is obtained from their [Jupyter Notebook](https://github.com/nethra8902/Badminton-Sport-Analysis-Computer-Vision/blob/master/GameCoders_Badminton_Analysis_Project.ipynb)
+    - The dataset contants `data` and `model` directories, total size is ~5GB
+- run `unzip CVFiles.zip`
+    - :coffee: error message 1 (solved):
+        ```
+        Archive:  CVFiles.zip
+        warning [CVFiles.zip]:  926112290 extra bytes at beginning or within zipfile
+          (attempting to process anyway)
+        error [CVFiles.zip]:  start of central directory not found;
+          zipfile corrupt.
+          (please check that you have transferred or created the zipfile in the
+          appropriate BINARY mode and that you have compiled UnZip properly)
+        ```
+    - solution: 
+        - [cannot open large concatenated zip file with unzip](https://superuser.com/questions/839711/cannot-open-large-concatenated-zip-file-with-unzip-though-it-opened-fine-with-a)
+        - run
+            ```
+            zip -FF CVFiles.zip -O CVFiles.fixed.zip
+            unzip CVFiles.fixed.zip
+            ```
