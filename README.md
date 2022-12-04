@@ -1,14 +1,15 @@
-# Machine Learning in Badminton
+# Badminton Shuttlecock Tracking
 
 ###### tags: `INFO 521`
 
-Clasification of different badminton strokes during a match
+Badminton Shuttlecock Tracking using Convolutional Neural Networks
 
 - INFO 521 Final projects (Fall 2022)
 - Authors: Chia-Lin Ko, Yuan Jea Hew
 
 ## Dataset
 - [Shuttlecock Trajectory Dataset](https://hackmd.io/Nf8Rh1NrSrqNUzmO0sQKZw)
+- [Our Own Dataset](https://drive.google.com/drive/folders/1mNntqLRaQkIhUmLZPC19Yc7HXesgBrpQ?usp=share_link)
 
 ## Setup instructions
 
