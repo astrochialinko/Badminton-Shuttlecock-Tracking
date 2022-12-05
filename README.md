@@ -65,7 +65,7 @@ TrackNetv2
 - The `model_33` and `model906_30` are removed from the repository because they GitHub's file size limit of 100 MB
 - Those two model can be downloaded from the original [TrackNetv2 GitLab Repo](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2)
 - The scripts of TrackNetV2 Model are in `3_in_3_out` folder (future work)
-- The scripts of `predict.py`, `accuracy.py`, and `TrackNet.py` have been modified so that we can run the scripts without using GPU (e.g., CPU only) to accomadate with our computers.
+- The scripts of `predict.py`, `accuracy.py`, and `TrackNet.py` have been modified so that we can run the scripts without GPU (e.g., CPU only) to accomadate with our computers.
 
 ## Setup Instructions
 
@@ -93,9 +93,20 @@ For example:
 Then, the command will be `python3 predict.py --video_name=../DataSet/OurOwnRecording/chialin_neha.mp4 --load_weights=model_33`
 
 The outputs are `predict.mp4` and `predict.csv` files
+
 The `predict.mp4` looks like
 
 [![Watch the video](https://img.youtube.com/vi/vjk_LwsQJ3c/maxresdefault.jpg)](https://youtu.be/vjk_LwsQJ3c)
+
+The `predict.csv` files includes below information
+
+- **Frame**: represent the frame of video
+- **Visibility**: the shuttlecock is visible or not at this frame
+    - 0 : invisible
+    - 1 : visible
+- **X, Y**: the coordinate of shuttlecock
+    - If shuttlecock is invisible now, then X, Y is 0
+- **Time**: the time of the video
 
 
 ## Estimate the performance
@@ -140,9 +151,13 @@ Done......
 
 
 
-## Reference
+## References
 
 - TrackNet: A Deep Learning Network for Tracking High-speed and Tiny Objects in Sport Applications [(IEEE Conference Preceedings)](https://www.computer.org/csdl/proceedings-article/avss/2019/08909871/1febOkjOevC)
 - TrackNetV2: Efficient Shuttlecock Tracking Network [(IEEE Conference Preceedings)](https://ieeexplore.ieee.org/document/9302757)
 - TrackNet [(GitLab)](https://nol.cs.nctu.edu.tw:234/open-source/TrackNet)
 - TrackNetV2 [(GitLab)](https://nol.cs.nctu.edu.tw:234/open-source/TrackNetv2)
+
+## Acknowledgements
+
+We would like to acknowledge support for Prof. Cristian Román-Palacios and Jiacheng Zhang for their guidance and support throughout the semester.
