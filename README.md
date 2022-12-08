@@ -7,9 +7,13 @@ Badminton Shuttlecock Tracking using Convolutional Neural Networks
 - INFO 521 Final projects (Fall 2022)
 - Authors: Chia-Lin Ko, Yuan Jea Hew
 
-## Video Presentation
+## Presentation
 
-[![Watch the video](https://img.youtube.com/vi/4aSbkJG9M0o/maxresdefault.jpg)](https://youtu.be/4aSbkJG9M0o)
+- [Report Paper](https://www.overleaf.com/read/zyczxtbxvfsj)
+- [Video Presentation](https://youtu.be/4aSbkJG9M0o)
+
+    [![Watch the video](https://img.youtube.com/vi/4aSbkJG9M0o/maxresdefault.jpg)](https://youtu.be/4aSbkJG9M0o)
+
 
 
 ## Dataset
